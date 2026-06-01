@@ -4,28 +4,28 @@ public class SafeHome {
 
     public static void main(String[] args) {
         DoorLockController controller = new DoorLockController();
-        java.util.Scanner scanner = new java.util.Scanner(System.in);
-        boolean running = true;
+        try (java.util.Scanner scanner = new java.util.Scanner(System.in)) {
+            boolean running = true;
+            while (running) {
+                System.out.println("Select user type:");
+                System.out.println("1 - Admin");
+                System.out.println("2 - Tenant");
+                System.out.println("0 - Exit");
+                String choice = scanner.nextLine().trim();
 
-        while (running) {
-            System.out.println("Select user type:");
-            System.out.println("1 - Admin");
-            System.out.println("2 - Tenant");
-            System.out.println("0 - Exit");
-            String choice = scanner.nextLine().trim();
-
-            switch (choice) {
-                case "1":
-                    runAdminMenu(controller, scanner);
-                    break;
-                case "2":
-                    runTenantMenu(controller, scanner);
-                    break;
-                case "0":
-                    running = false;
-                    break;
-                default:
-                    System.out.println("Invalid option.");
+                switch (choice) {
+                    case "1":
+                        runAdminMenu(controller, scanner);
+                        break;
+                    case "2":
+                        runTenantMenu(controller, scanner);
+                        break;
+                    case "0":
+                        running = false;
+                        break;
+                    default:
+                        System.out.println("Invalid option.");
+                }
             }
         }
     }
